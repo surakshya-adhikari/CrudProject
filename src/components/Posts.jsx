@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getPost } from "../api/PostApi";
+import { getPost,deletePost } from "../api/PostApi";
 
 export const Posts = () => {
   const [data, setData] = useState([]);
@@ -13,6 +13,27 @@ export const Posts = () => {
   useEffect(() => {
     getPostData();
   }, []);
+
+//to delete
+  const handleDeletePost = async(id) =>{
+   try {
+    const res = await deletePost(id)
+    if (res.status === 200) {
+      const UpdatedPost = data.filter((currentPost) =>{
+        return currentPost.id !== id
+      })
+      setData(UpdatedPost)
+      
+    }
+   } catch (error) {
+    console.log(error);
+    
+    
+   }
+  
+   
+  }
+
 
   return (
     <div className="container mx-auto p-4 bg-gray-900 text-white min-h-screen">
@@ -38,7 +59,7 @@ export const Posts = () => {
                   </button>
                   <button
                     className="bg-red-500 px-4 py-2 rounded hover:bg-red-600 transition"
-                    onClick={() => handleDelete(id)}
+                    onClick={() => handleDeletePost(id)}
                   >
                     Delete
                   </button>
