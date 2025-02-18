@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getPost, deletePost } from "../api/PostApi";
+import { Form } from "./Form";
 
 export const Posts = () => {
   const [data, setData] = useState([]);
@@ -39,6 +40,10 @@ export const Posts = () => {
   };
 
   return (
+    <>
+    <section>
+      <Form data= {data} setData= {setData} /> 
+    </section>
     <div className="container mx-auto p-4 bg-rose-700 text-white min-h-screen">
       <h1 className="text-3xl text-gray-900 font-bold text-center mb-6">Posts</h1>
       <div className="flex flex-wrap gap-6 justify-center">
@@ -72,5 +77,6 @@ export const Posts = () => {
         })}
       </div>
     </div>
+    </>
   );
 };
